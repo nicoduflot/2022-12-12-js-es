@@ -379,6 +379,82 @@
         console.log(fruitEtLegumes);
         let tabTemp = [];
         let tabDoublons = [];
+        
+        let tempFruit = '';
+
+        fruitEtLegumes.sort();
+
+        fruitEtLegumes.map(function(value){
+            if(value !== tempFruit){
+                tabTemp.push([value, 1]);
+                tempFruit = value;
+            }else{
+                for(fruit of tabTemp){
+                    if(fruit[0] === value){
+                        fruit[1] = fruit[1] + 1;
+                    }
+                }
+            }
+        });
+
+        /* on peut créer une sorte de tableau associatif */
+        /*
+        fruitEtLegumes.map(function(value){
+            if(tabTemp[value] === undefined){
+                tabTemp[value] = 1;
+            }else{
+                tabTemp[value] = tabTemp[value] + 1;
+            }
+        });
+        */
+
+        /* vider le tableau contenant les doublons */
+        console.table(tabTemp);
+
+        fruitEtLegumes.splice(0, fruitEtLegumes.length);
+        console.log(fruitEtLegumes);
+
+        tabTemp.map(function(value){
+            console.log(value[0], value[1]);
+            fruitEtLegumes.push(value[0]);
+            if(value[1] > 1){
+                tabDoublons.push(value);
+            }
+        })
+
+        console.log('--------- tableau de fruits trié par ordre alphabétique sans doublons ---------');
+        console.table(fruitEtLegumes);
+        console.log('--------- tableau des doublons ---------');
+        console.table(tabDoublons);
+
+        /* pour creuser et faire ça plus élégamment on peut utiliser la classe Map */
+
+        let fruitEtLegumes2 = [
+            'fraise',
+            'bananes',
+            'mangue',
+            'choux',
+            'mangue',
+            'courgette',
+            'fraise',
+            'brocoli',
+            'haricot',
+            'mangue'
+        ];
+
+        fruitEtLegumes2.sort();
+
+        let legumesDoublons = new Map();
+        for(value of fruitEtLegumes2){
+            if(!legumesDoublons.get(value)){
+                legumesDoublons.set(value, 1);
+            }else{
+                legumesDoublons.set(value, legumesDoublons.get(value) + 1);
+            }
+        }
+
+        console.log(legumesDoublons);
+        console.log(legumesDoublons.get('courgette'));
 
 
     </script>
