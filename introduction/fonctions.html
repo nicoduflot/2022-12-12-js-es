@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formation Javascript Ecmascript</title>
+    <link rel="stylesheet" href="../css/bootstrap.css" />
+    <script src="../js/bootstrap.bundle.js"></script>
+    <script>
+        /*
+        il existe  deux types de fonction : les fonctions et les méthodes : 
+            - les méthodes sont des fonctions déclarées et utilisées via : 
+                - des instances de classe (objets créés par cette classe)
+                - la classe directement quand cette méthode est statique dans la classe
+            - les fonctions sont déclarées dans le programme ou dans un script.
+                Elle sont utilisables directement sans passer par des objets
+
+        de base, on utilise le mot clef function, puis le nom de la fonction, des parenthèses pour les paramètres (qu'il y en ait ou non)
+        enfin des acolades dans lequelles on a le code de la fonction
+
+        Les fonctions peuvent retourner un résultat ou directement agir sans retour vers l'appel de la fonction.
+        
+        fonction "simple" (sans paramètres d'appel) 
+        */
+
+        function helloWorld(){
+            return 'Coucou';
+        }
+
+        console.log(helloWorld());
+
+        /*
+            fonction avec des variables en paramètre
+            l'écriture @param permet de définir à l'utilisateur de la fonction, 
+            le type des arguments attendus
+        */
+
+        /**
+         * @param {string} prenom - afficher coucou prenom nom, beau reste pour age
+         * @param {string} nom
+         * @param {number} age
+        */
+        function helloYou(prenom, nom, age){
+            return `Hello ${prenom} ${nom}, looking good for a ${age} years old`;
+        }
+
+        console.log(helloYou('Nicolas', 'Duflot', 42));
+        
+        /*
+        quand on utilise sur un tableau la méthode .push()
+        let tab = [];
+        tab.push('ha ha');
+        tab.push('hi hi', 'ho ho');
+        => push n'admet en fait qu'un seul paramètre, mais c'est un type particulier de paramètre => il utilise un 
+        opérateur variadique ou aussi appelé spread parameter
+
+        tab.push('a', 'b', 'c') => 
+        les paramètres a, b et c sont traité les uns après les autres, sous la forme ['a', 'b', 'c']
+
+        l'opérateur variadique, indiqué devant une variable d'appel de fonction transforme TOUTES les variables écrite en un tableau de valeur
+
+        function maFonction(variable, ...valeurs){
+            valeurs.forEach(function(element){
+                // traitement des valeurs ...valeurs
+            });
+        }
+
+        /!\ ATTENTION /!\
+        L'opérateur variadique ne peut être utilisé qu'une fois par appel de fonction et en tout dernier
+
+        function maFonction(42, 'a', 'b', 'c');
+
+        créer une fonction addition qui reçoit x paramètres et renvoi le résultat de l'addition des tous ces paramètres
+
+        */
+
+        function addition(...valeurs){
+            let resultat = 0;
+            for(value of valeurs){
+                /*
+                if(parseFloat(value)){
+                    resultat = resultat + parseFloat(value);
+                }
+                */
+                // les etrnaire : un if en une ligne
+                // (condition du ternaire)? resultat si vrai:resultat si faux;
+                resultat += (parseFloat(value))?parseFloat(value): 0;
+            }
+            return resultat;
+        }
+
+        console.log(addition(1,2,3,4,'5',6,7,8,9, 'toto'));
+
+
+    </script>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-sm navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="../">Accueil</a>
+            <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="collapsibleNavId">
+                <ul class="navbar-nav me-auto mt-2 mt-lg-0">
+                    <div class="collapse navbar-collapse" id="collapsibleNavId">
+                        <ul class="navbar-nav me-auto mt-2 mt-lg-0">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">Introduction</a>
+                                <div class="dropdown-menu" aria-labelledby="dropdownId">
+                                    <a class="dropdown-item" href="../introduction/index.html">Premiers scripts</a>
+                                    <a class="dropdown-item" href="../introduction/tableaux.html">Les tableaux</a>
+                                    <a class="dropdown-item" href="../introduction/fonctions.html">Les fonctions</a>
+                                    <a class="dropdown-item" href="../introduction/destructuration.html">La
+                                        destructuration</a>
+                                    <a class="dropdown-item" href="../introduction/storage.html">Storage</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="collapse navbar-collapse" id="collapsibleNavId">
+                        <ul class="navbar-nav me-auto mt-2 mt-lg-0">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">Le DOM</a>
+                                <div class="dropdown-menu" aria-labelledby="dropdownId">
+                                    <a class="dropdown-item" href="../dom/index.html">Le DOM</a>
+                                    <a class="dropdown-item" href="../dom/dom.html">Créer dans le DOM</a>
+                                    <a class="dropdown-item" href="../dom/css.html">DOM et CSS</a>
+                                    <a class="dropdown-item" href="../dom/dataset.html">Dataset</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="collapse navbar-collapse" id="collapsibleNavId">
+                        <ul class="navbar-nav me-auto mt-2 mt-lg-0">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">AJAX</a>
+                                <div class="dropdown-menu" aria-labelledby="dropdownId">
+                                    <a class="dropdown-item" href="../ajax/index.html">Promesses</a>
+                                    <a class="dropdown-item" href="../ajax/fetch.html">AJAX avec Fetch</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main class="container">
+        <section class="row">
+            <div class="col">
+                <article>
+                    <header>
+                        <h2>Les tableaux</h2>
+                    </header>
+                    <main>
+                        <p>
+                            Tous est dans la console & le code
+                        </p>
+                        <p>
+                            <a href="./exotableaux.html">Un exercice sur les tableaux</a>
+                        </p>
+                    </main>
+                </article>
+        </section>
+    </main>
+</body>
+
+</html>
