@@ -8,7 +8,105 @@
     <link rel="stylesheet" href="../css/bootstrap.css" />
     <script src="../js/bootstrap.bundle.js"></script>
     <script>
+        /* avant es6 */
+        /*
+        var tableau = new Array('valeur', 1, 12.3, true);
+        ['valeur', 1, 12.3, true]
+        */
+
+        /* depuis es6 */
+        let cars = ['Peugeot', 'Citroën', 'Ford', 'Renault'];
+        console.log(cars);
+        console.log(cars[1]);
+        console.log(cars.length);
+        console.log(cars[cars.length]);
+        console.log(`Les tableau cars : ${cars} contient ${cars.length} élément(s)`);
+
+        cars[cars.length] = 'Kya'; // pas du tout la bonne méthode
+        console.table(cars);
+        /*
+        cars[9] = 'toto';
+        console.log(cars);
+        */
+
+        cars.push('Fiat');
+        console.log(cars);
+
+        /* les tableaux sont itérables, c'est à dire qu'on peut les parcourir en utilisant des boucles d'itération */
+
+        /* Pour */
+
+        console.log('------------ boucle for ------------');
+        for (let i = 0; i < cars.length; i++) {
+            console.log(`la valeurs à l'index ${i} est ${cars[i]}`);
+        }
         
+        console.log('------------ boucle for in ------------');
+        for (let index in cars) {
+            console.log(`la valeurs à l'index ${index} est ${cars[index]}`);
+        }
+
+        /* depuis es6 */
+        console.log('------------ boucle for of ------------');
+        for (let value of cars) {
+            console.log(`la valeurs actuelle est ${value}`);
+        }
+
+        /* le for in permet aussi d'itérer sur les attributs et méthodes d'un objet */
+
+        let obj = {
+            nom: 'Duflot',
+            prenom: 'Nicolas',
+            age: 42,
+            presentation: function(){
+                return `bonjour, je m'appelle ${this.prenom} ${this.nom}, j'ai ${this.age} ans`;
+            },
+            toto: {
+                titi: 'coucou',
+                ok: 42
+            }
+        }
+
+        console.log(obj.presentation());
+
+        for(let key in obj){
+            console.log(`l'attribut ${key} contient ${obj[key]}`);
+            console.log(`${key} est du type ${typeof obj[key]}`);
+            if('object' === typeof obj[key]){
+                for(let subkey in obj[key]){
+                    console.log(`l'attribut ${subkey} contient ${obj[key][subkey]}`);
+                    console.log(`${subkey} est du type ${typeof obj[key][subkey]}`);
+                }
+            }
+        }
+
+        /* faire */
+        let cpt = 0;
+        console.log('------------ boucle while ------------');
+        while(cpt < cars.length ){
+            console.log(`la valeur à l'index ${cpt} est ${cars[cpt]}`);
+            cpt++;
+        }
+
+        cpt = 0;
+        console.log('------------ boucle do while ------------');
+        do{
+            console.log(`la valeur à l'index ${cpt} est ${cars[cpt]}`);
+            cpt++;
+        }while(cpt < cars.length )
+
+        /* sortir prématurément d'une boucle */
+        cpt = 0;
+        console.log('------------ boucle do while ------------');
+        do{
+            if(cars[cpt] === 'Ford'){
+                console.log(`la valeur à l'index ${cpt} est ${cars[cpt]}`);
+                break;
+            }
+            cpt++;
+        }while(cpt < cars.length )
+
+        /* la méthode forEach() */
 
     </script>
 </head>
