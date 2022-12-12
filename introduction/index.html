@@ -1,18 +1,194 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formation Javascript Ecmascript</title>
     <link rel="stylesheet" href="../css/bootstrap.css" />
     <script src="../js/bootstrap.bundle.js"></script>
+    <script>
+        // commentaire en une ligne
+        /*
+        commentaire en bloc
+        */
+        /**
+         * 
+        */
+        // écrire dans la console
+        console.log('Coucou');
+        /* Variables et opérateurs */
+        var prenom = 'Jean'; // à l'ancienne, a proscrire
+        console.log('var prenom : ' + prenom + 1 + 2); //INTERDIT !!!
+        console.log('var prenom : ', prenom);
+        console.error('var prenom : ', prenom);
+        console.log(`var prenom : ${prenom}, ${1 + 2}`); // interpolation de texte
+
+        function affPrenom() {
+            prenom = 'ruru';
+            console.log(prenom);
+            prenom = 'Toto';
+        }
+
+        affPrenom();
+
+        console.log(prenom);
+
+        let nom = 'Neige';
+        console.log(nom);
+
+        function affNom() {
+            let nom = 'tutu';
+            console.log(nom);
+            nom = 'toto';
+        }
+
+        affNom();
+        console.log(nom);
+
+        const TEST = 'test';
+
+        const HOSTEN = '127.123.125.0';
+        const HOSTFR = '127.123.255.0';
+        const HOSTFRNAME = 'fr-admin@123.12';
+        const HOSTENNAME = 'en-admin@196.10';
+
+        console.log(typeof nom);
+        console.log(typeof 12.3);
+
+        let monObjetLiteral = {
+            unNombre: 42,
+            uneChaine: 'Tata',
+            maMethode: function () {
+                console.log('Hello World');
+            }
+        };
+
+        console.log(monObjetLiteral.unNombre);
+        console.log(monObjetLiteral.uneChaine);
+        console.log(monObjetLiteral.maMethode);
+        console.log(monObjetLiteral.maMethode());
+
+        console.log(Math.pow(2, monObjetLiteral.unNombre));
+
+        /**
+         * JS est un langage prototypé
+        */
+
+        let tab = ['haha', 'ho ho ho'];
+        console.log(tab);
+        console.log(typeof tab);
+
+        /**
+         * JS est un lanagage "non typé"
+         * Les varaibles prennent le type de la donnée qu'elles contiennent
+         * 
+         * Types
+         * [Primitifs]
+         * 
+         * number       -> nombres (entiers, virgule floattante, big int)
+         * bool         -> Bouléen 
+         * 
+         * [Références]
+         * 
+         * String       -> chaîne de caractère
+         * Array        -> tableau
+         * Objects      -> objet
+         * JSON         -> JavaScript Object Notation
+         * 
+        */
+
+        /* Opérateurs */
+
+        /**
+         * Mathématiques
+         * 
+         * +  /!\ ATTENTION /!\ aussi utilisé dans la concaténation
+         * - 
+         * / division
+         * % modulo (le reste d'une division entière)
+         * * 
+         * **   => 2**3 = 8
+         *      => Math.pow(2, 3) = 8
+         * 
+         * Incrémentation / Décrémentation
+         * ++variable / variable++
+         * --variable / variable--
+        */
+
+        let nombreIncrement = 11;
+        nombreIncrement++; // passe à 12
+        console.log(nombreIncrement);
+        console.log(nombreIncrement++);  // affiche 12 puis passe à 13
+        console.log(nombreIncrement);  // 
+        console.log(++nombreIncrement);  // passe de 13 à 14 puis affiche le nombre
+
+        /**
+         * 
+         * Logiques 
+         * 
+         * &&      => ET
+         *         => a = true, b = true
+         *         => a && b                       => true
+         *         => !a (!a === false) && b       => false
+         *         => a && !b (!b === false)       => false
+         *         => !a && !b                     => false
+         * 
+         * ||      => OU
+         *         => a = true, b = true
+         *         => a || b                       => true
+         *         => !a || b                      => true
+         *         => a || !b                      => true
+         *         => !a || !b                     => false
+         *
+         * ^       => OU EXCLUSIF BINAIRE (XOR)
+         *         => a = true, b = true
+         *         => a ^ b                        => false
+         *         => !a ^ b                       => true
+         *         => a ^ !b                       => true
+         *         => !a ^ !b                      => false
+         *  
+         * Comparaison
+         * 
+         * <
+         * >
+         * <=
+         * >=
+         * <==
+         * >==
+         * 
+         * == !=    => Non strict compare seulement la valeur
+         * === !==  => strict compare la valeur et le type
+        */
+
+        console.log('2' == 2);
+        console.log('2' === 2);
+        console.log('3' != 2);
+        console.log('2' != 2);
+        console.log('2' !== 2);
+
+        /* yoda code */
+        /*
+        // en java
+        String a = 'Chaîne';
+        a.equals('Chaîne'); // retourne vrai
+        String b = null;
+        b.equals('Chaîne'); // retourne NullPointerException
+        "Chaîne".equals(b); // retourne false      
+        */
+
+
+
+    </script>
 </head>
+
 <body>
     <nav class="navbar navbar-expand-sm navbar-light bg-light">
-          <div class="container">
+        <div class="container">
             <a class="navbar-brand" href="../">Accueil</a>
-            <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId"
-                aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
+                aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="collapsibleNavId">
@@ -20,12 +196,14 @@
                     <div class="collapse navbar-collapse" id="collapsibleNavId">
                         <ul class="navbar-nav me-auto mt-2 mt-lg-0">
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Introduction</a>
+                                <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">Introduction</a>
                                 <div class="dropdown-menu" aria-labelledby="dropdownId">
                                     <a class="dropdown-item" href="../introduction/index.html">Premiers scripts</a>
                                     <a class="dropdown-item" href="../introduction/tableaux.html">Les tableaux</a>
                                     <a class="dropdown-item" href="../introduction/fonctions.html">Les fonctions</a>
-                                    <a class="dropdown-item" href="../introduction/destructuration.html">La destructuration</a>
+                                    <a class="dropdown-item" href="../introduction/destructuration.html">La
+                                        destructuration</a>
                                     <a class="dropdown-item" href="../introduction/storage.html">Storage</a>
                                 </div>
                             </li>
@@ -34,7 +212,8 @@
                     <div class="collapse navbar-collapse" id="collapsibleNavId">
                         <ul class="navbar-nav me-auto mt-2 mt-lg-0">
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Le DOM</a>
+                                <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">Le DOM</a>
                                 <div class="dropdown-menu" aria-labelledby="dropdownId">
                                     <a class="dropdown-item" href="../dom/index.html">Le DOM</a>
                                     <a class="dropdown-item" href="../dom/dom.html">Créer dans le DOM</a>
@@ -47,41 +226,66 @@
                     <div class="collapse navbar-collapse" id="collapsibleNavId">
                         <ul class="navbar-nav me-auto mt-2 mt-lg-0">
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">AJAX</a>
+                                <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-bs-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">AJAX</a>
                                 <div class="dropdown-menu" aria-labelledby="dropdownId">
-                                    <a class="dropdown-item" href="../dom/index.html">Promesses</a>
-                                    <a class="dropdown-item" href="../dom/fetch.html">AJAX avec Fetch</a>
+                                    <a class="dropdown-item" href="../ajax/index.html">Promesses</a>
+                                    <a class="dropdown-item" href="../ajax/fetch.html">AJAX avec Fetch</a>
                                 </div>
                             </li>
                         </ul>
                     </div>
                 </ul>
             </div>
-      </div>
+        </div>
     </nav>
-    
     <main class="container">
         <section class="row">
             <div class="col">
                 <article>
                     <header>
-                        <h1>Javascript Ecmascript initiation !!! </h1>
-                      </header>
-                      <main>
+                        <h2>Variables & Opérateurs</h2>
+                    </header>
+                    <main>
+                        <h3>Ecmascript</h3>
                         <p>
-                          JS est un langage de programmation <q>FRONT</q>, c'est à dire qu'il sert à ajouter de l'interaction
-                          avec le visiteur sans passer par une compilation serveur.<br />
-                          C'est le navigateur qui possède un moteur de rendu qui va compiler et exécuter le langage.
+                            Ecmascript (es) est une norme sur laquelle s'appuie JS. (ActionScript => flash, TypeScript).
                         </p>
                         <p>
-                          Le JS est capable d'agir sur les éléments HTML de la page, de faire appel à des API pour récupérer
-                          des données sur des ressources tierces (site, serveur) et de les disposer à l'affichage sans avoir a
-                          recharger la page côté utlisateur.
+                            La dernière norme ecmascript es7 (2017, très peu de différences avec es6)
                         </p>
-                      </main>
+                        <ul>
+                            <li>es1 - 1997</li>
+                            <li>es2 - 1999</li>
+                            <li>es4 - version abandonnée</li>
+                            <li>es5 - 2009</li>
+                            <li>es6 - 2015</li>
+                            <li>es7 - 2017</li>
+                        </ul>
+                        <p>
+                            Jusqu'en 2010, JS était mal considéré par les développeurs ( peu normé, trop permissif )
+                        </p>
+                        <p>
+                            L'arrivée de Google Chrome, avec en plus l'envie de Google de refaire fonctionner
+                            correctement JS.
+                            Création du moteur d'interprétation V8.
+                            => un boost des capacitées de JS et son éxécution
+                        </p>
+                        <p>
+                            Grâce au V8, des nouveau langages ou méthodes de développement sont arrivées, notemment
+                            NodeJs (2009),
+                            qui s'appuis sur JS mais s'éxécute sur le serveur
+                        </p>
+                        <p>
+                            La convention du code en es6 est visible sur Github
+                            <a href="https://github.com/elierotenberg/coding-styles/blob/master/es6.md" target="_blank">
+                                es6
+                            </a>
+                        </p>
                 </article>
             </div>
         </section>
     </main>
 </body>
+
 </html>
