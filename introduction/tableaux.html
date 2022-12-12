@@ -30,6 +30,7 @@
         */
 
         cars.push('Fiat');
+        cars.push('Seat', 'Hyundai', 'Audi', 'Opel');
         console.log(cars);
 
         /* les tableaux sont itérables, c'est à dire qu'on peut les parcourir en utilisant des boucles d'itération */
@@ -40,7 +41,7 @@
         for (let i = 0; i < cars.length; i++) {
             console.log(`la valeurs à l'index ${i} est ${cars[i]}`);
         }
-        
+
         console.log('------------ boucle for in ------------');
         for (let index in cars) {
             console.log(`la valeurs à l'index ${index} est ${cars[index]}`);
@@ -58,7 +59,7 @@
             nom: 'Duflot',
             prenom: 'Nicolas',
             age: 42,
-            presentation: function(){
+            presentation: function () {
                 return `bonjour, je m'appelle ${this.prenom} ${this.nom}, j'ai ${this.age} ans`;
             },
             toto: {
@@ -69,11 +70,11 @@
 
         console.log(obj.presentation());
 
-        for(let key in obj){
+        for (let key in obj) {
             console.log(`l'attribut ${key} contient ${obj[key]}`);
             console.log(`${key} est du type ${typeof obj[key]}`);
-            if('object' === typeof obj[key]){
-                for(let subkey in obj[key]){
+            if ('object' === typeof obj[key]) {
+                for (let subkey in obj[key]) {
                     console.log(`l'attribut ${subkey} contient ${obj[key][subkey]}`);
                     console.log(`${subkey} est du type ${typeof obj[key][subkey]}`);
                 }
@@ -83,31 +84,304 @@
         /* faire */
         let cpt = 0;
         console.log('------------ boucle while ------------');
-        while(cpt < cars.length ){
+        while (cpt < cars.length) {
             console.log(`la valeur à l'index ${cpt} est ${cars[cpt]}`);
             cpt++;
         }
 
         cpt = 0;
         console.log('------------ boucle do while ------------');
-        do{
+        do {
             console.log(`la valeur à l'index ${cpt} est ${cars[cpt]}`);
             cpt++;
-        }while(cpt < cars.length )
+        } while (cpt < cars.length)
 
         /* sortir prématurément d'une boucle */
         cpt = 0;
         console.log('------------ boucle do while ------------');
-        do{
-            if(cars[cpt] === 'Ford'){
+        do {
+            if (cars[cpt] === 'Ford') {
                 console.log(`la valeur à l'index ${cpt} est ${cars[cpt]}`);
                 break;
             }
             cpt++;
-        }while(cpt < cars.length )
+        } while (cpt < cars.length)
 
         /* la méthode forEach() */
+        console.log('------------ méthode forEach() ------------');
+        cars.forEach(function (value, index, tab) {
+            console.log(value, index, tab);
+        });
 
+        let numbers = [1, 2, 3, 4, 5, 6];
+
+        numbers.forEach(function (value, index, tab) {
+            if (value % 2 === 0) {
+                tab[index] = value * 1.2;
+            }
+            if (value % 3 === 0) {
+                tab[index] = value * 1.5;
+            }
+        });
+
+        console.log(numbers);
+
+        /* 
+        es6 .entries() 
+        modèle objet : renvoi chaque élement du tableau sous de tableau, [index, valeur]
+        */
+
+        console.log('------------ méthode .entries() ------------');
+        for (let entry of cars.entries()) {
+            console.log(entry);
+            console.log(entry[0]);
+            console.log(entry[1]);
+        }
+
+        /* la méthode map() */
+        /* idem que forEach mais utilisable SEULEMENT sur les tableau */
+        console.log('------------ méthode map() ------------');
+        cars.map(function (value, index, tab) {
+            console.log(value, index, tab);
+        });
+
+        console.log('------------ méthode .keys() ------------');
+        for (let key of cars.keys()) {
+            console.log(key, cars[key]);
+        }
+
+        /* suprimer (mais pas vraiment) des éléments dans un tableau */
+        /*
+        .pop()
+        .shift()
+        .splice() => 3 utilisations
+        */
+
+        /* .pop() extraire la dernière valeur d'un tableau */
+        let extractLast = cars.pop();
+        console.log(cars);
+        console.log(extractLast);
+
+        /* .shift() extraire la première valeur d'un tableau et recalibre les index */
+        let extractfirst = cars.shift();
+        console.log(cars);
+        console.log(extractfirst);
+
+        /* 
+        .splice() : 1
+            extraire une ou plusieurs valeurs où que ce soit dans le tableau
+         */
+        let tabRemoved = cars.splice(3, 3);
+        console.log(cars);
+        console.log(tabRemoved);
+
+        /* 
+        .splice() : 2
+            remplacer une ou plusieurs valeurs où que ce soit dans le tableau par d'autre valeur, le même nombre ou pas
+         */
+
+        let tabReplaced = cars.splice(1, 3, 'Dacia', 'Alpine', 'Mazda');
+        console.log(cars);
+        console.log(tabReplaced);
+
+        /* 
+        .splice() : 3
+            inserrer une ou plusieurs valeurs où que ce soit dans le tableau
+         */
+
+        cars.splice(1, 0, extractfirst, extractLast, tabRemoved[0], tabRemoved[1], tabRemoved[2], tabReplaced[0], tabReplaced[1], tabReplaced[2]);
+        console.log(cars);
+
+        /* copier un tableau dans un autre tableau */
+        /*
+        let cloneCars = cars;
+        console.log(cloneCars);
+        cloneCars.pop();
+        console.log(cloneCars);
+        console.log(cars);
+        */
+
+        /* .slice() */
+
+        let cloneCars = cars.slice();
+        console.log(cloneCars);
+        cloneCars.pop();
+        console.log(cloneCars);
+        console.log(cars);
+        console.log(cars.slice(3, 6));
+
+        /* trier un tableau */
+        cloneCars.sort();
+        console.log(cloneCars);
+        cloneCars.reverse();
+        console.log(cloneCars);
+
+        let test = 'olalala';
+        let tabTest = test.split('');
+        tabTest.reverse();
+        test = tabTest.sort().reverse().join('');
+        console.log(test);
+        let tableau = ['ollal', 'kikkr', 'vluvlu'];
+        let chaineVlkr = tableau.join('@');
+        console.log(chaineVlkr);
+
+        /* les tableaux à deux dimensions ? */
+        carsTest = [ ['Fiat', 1956], ['Kya', 1995], ['Kya', 1990], ['Ford', 1950]];
+        console.table(carsTest);
+        carsTest.sort();
+        console.table(carsTest);
+
+        console.log(carsTest[1][0]);
+
+        let tab2d = [ ['a', 'b', 'c'], [12,13,12,15,14], [10, 23, 56, 4, [1, 2, 3]]];
+        console.table(tab2d);
+
+        /* créer une matrice devient un peu galère */
+        let matrice = [
+            [1, 2, 3, 4, 5],
+            [12, 14, 75, 56, 42]
+        ];
+
+        /* parcourir la "matrice" */
+        console.log('parcourir la "matrice"');
+        for(let value of matrice){
+            let line = '';
+            for(let subvalue of value){
+                line = `${line} ${subvalue}`;
+            }
+            console.log(line);
+        }
+
+        console.log('--- parcourir la matrice "2d" avec .map ---------');
+        matrice.map(function (value, index) {
+            value.map(function (subValue, subIndex) {
+                console.log(`X : ${index}, Y : ${subIndex} => ${subValue}`);
+            });
+        });
+
+        /* retrouver des valeurs dans un tableau */
+        /* .find() : renvoie l'index de la première occurence de la recherche */
+
+        console.log('------------- .find() --------------');
+        let arrayNum = [5, 8, 12, 130, 5, 3, 44];
+        let found = arrayNum.find(function(valeur){
+            /*
+            if(valeur > 20){
+                return valeur;
+            }
+            */
+            return 20 < valeur;
+        });
+        console.log(found);
+        
+        found = arrayNum.find(function(valeur){
+            /*
+            if(valeur > 20){
+                return valeur;
+            }
+            */
+           return 5 === valeur;
+        });
+        console.log(found);
+
+        let foundAll = arrayNum.filter(function(element){
+            /*
+            if(element > 20){
+                return element;
+            }
+            */
+            return element > 20;
+        });
+
+        console.log(foundAll);
+
+        /* opérateur arrow */
+        /*
+        
+        function(){
+            // code
+        }
+
+        devient 
+        ()=>{
+            //code
+        }
+
+        function(variable){
+            // code
+        }
+
+        (variable)=>{
+            // code
+        }
+
+        function(variable){
+            return variable*2;
+        }
+
+        (variable)=>variable*2;
+        
+        */
+
+        let foundAll2 = arrayNum.filter( (element) => element > 20 );
+
+        /*
+        les fonction de rappel (callback functions) ou fonctions 
+        anonymes génèrent des conséquences quand elles sont trop imbriqués 
+        c'est à surveiller lors de l'utilisation du this d'un objet 
+        dans les méthodes de l'objet
+        */
+
+        console.log('---------------- les conséquences --------------');
+        let monObjet = {
+            numbers: [1, 2, 56, 13, 123],
+            affTab: function () {
+                console.log(this);
+                let _this = this;
+                this.numbers.forEach(function (value) {
+                    console.log(this);
+                    console.log(_this);
+                });
+            },
+            affTab2: function () {
+                console.log(this);
+                this.numbers.forEach( (value)=>{
+                    console.log(this);
+                });
+            }
+        };
+
+        monObjet.affTab();
+        console.log('---------------- affTab2 --------------');
+        monObjet.affTab2();
+
+        /* 
+        créer un tableau avec des fruits et des légumes, avec deux fruits ou légumes en doublons 
+        modifier le tableau pour que : 
+            - les fruits et légumes soient triés par ordre alphabétiques
+            - que les doublons soient supprimés du tableau
+            - qu'on affiche un tableau des doublons et le nombre d'occurence de chaque doublons
+        */
+
+        let fruitEtLegumes = [
+            'fraise',
+            'bananes',
+            'mangue',
+            'choux',
+            'mangue',
+            'courgette',
+            'fraise',
+            'brocoli',
+            'haricot',
+            'mangue'
+        ];
+
+        console.log(fruitEtLegumes);
+        fruitEtLegumes.sort();
+        let tabTemp = [];
+        let tabDoublons = [];
+
+        
     </script>
 </head>
 
