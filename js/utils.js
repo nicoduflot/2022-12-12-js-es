@@ -6,6 +6,10 @@ function qS(selector){
     return document.querySelector(selector);
 }
 
+function qSAll(selector){
+    return document.querySelectorAll(selector);
+}
+
 /* création de cookies */
 
 /**
