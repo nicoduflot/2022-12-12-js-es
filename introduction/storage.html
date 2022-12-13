@@ -9,7 +9,7 @@
     <script src="../js/bootstrap.bundle.js"></script>
     <script src="../js/utils.js"></script>
     <script>
-        loaded(function(){
+        loaded(function () {
             let sessionUser = qS('#sessionUser');
             let btnSession = qS('#btnSession');
             let btnClearSessionItem = qS('#btnClearSessionItem');
@@ -17,25 +17,25 @@
             let dataSession = qS('#dataSession');
             //console.log(sessionUser, btnSession, btnClearSessionItem, btnClearSession);
 
-            if(sessionStorage.getItem('sessionUserName')){
+            if (sessionStorage.getItem('sessionUserName')) {
                 dataSession.innerHTML = `<b>${sessionStorage.getItem('sessionUserName')}</b>`;
             }
 
-            btnSession.addEventListener('click', function(event){
+            btnSession.addEventListener('click', function (event) {
                 //console.log('bouton', event);
-                if('' !== sessionUser.value){
+                if ('' !== sessionUser.value) {
                     sessionStorage.setItem('sessionUserName', sessionUser.value);
                     dataSession.innerHTML = `<b>${sessionStorage.getItem('sessionUserName')}</b>`;
                     sessionUser.value = '';
                 }
             });
 
-            btnClearSessionItem.addEventListener('click', function(){
+            btnClearSessionItem.addEventListener('click', function () {
                 sessionStorage.removeItem('sessionUserName');
                 dataSession.innerHTML = `<b>Pas de sessionUser enregistré</b>`;
             });
-            
-            btnClearSession.addEventListener('click', function(){
+
+            btnClearSession.addEventListener('click', function () {
                 sessionStorage.clear();
                 dataSession.innerHTML = `<b>Pas de sessionUser enregistré</b>`;
             });
@@ -47,29 +47,29 @@
             let dataLocal = qS('#dataLocal');
             //console.log(sessionUser, btnSession, btnClearSessionItem, btnClearSession);
 
-            if(localStorage.getItem('localUserName')){
+            if (localStorage.getItem('localUserName')) {
                 dataLocal.innerHTML = `<b>${localStorage.getItem('localUserName')}</b>`;
             }
 
-            if(sessionStorage.getItem('localUserName')){
+            if (sessionStorage.getItem('localUserName')) {
                 dataLocal.innerHTML = `<b>${localStorage.getItem('localUserName')}</b>`;
             }
 
-            btnLocal.addEventListener('click', function(event){
+            btnLocal.addEventListener('click', function (event) {
                 //console.log('bouton', event);
-                if('' !== localUser.value){
+                if ('' !== localUser.value) {
                     localStorage.setItem('localUserName', localUser.value);
                     dataLocal.innerHTML = `<b>${localStorage.getItem('localUserName')}</b>`;
                     localUser.value = '';
                 }
             });
 
-            btnClearLocalItem.addEventListener('click', function(){
+            btnClearLocalItem.addEventListener('click', function () {
                 localStorage.removeItem('localUserName');
                 dataLocal.innerHTML = `<b>Pas de localUser enregistré</b>`;
             });
-            
-            btnClearLocal.addEventListener('click', function(){
+
+            btnClearLocal.addEventListener('click', function () {
                 localStorage.clear();
                 dataLocal.innerHTML = `<b>Pas de localUser enregistré</b>`;
             });
@@ -88,24 +88,54 @@
             console.log(dateNow.toUTCString());
             console.log(dateNow.getFullYear());
             console.log(dateNow.getMonth());
-            console.log(dateNow.getMonth()+1);
+            console.log(dateNow.getMonth() + 1);
             console.log(dateNow.getTime());
             console.log(dateNow.getTime() + (1 * 24 * 60 * 60 * 1000));
             let dateEnd = new Date();
             //  console.log(dateEnd.getTime() + (1 * 24 * 60 * 60 * 1000));
-            dateEnd.setTime(dateEnd.getTime() + (1 * 24 * 60 * 60 * 1000) + (1000 * 60 *60));
+            dateEnd.setTime(dateEnd.getTime() + (1 * 24 * 60 * 60 * 1000) + (1000 * 60 * 60));
             console.log(dateEnd);
             console.log(typeof dateEnd);
             console.log(typeof dateNow);
-            
+
             /* créer un cookie de test */
             document.cookie = `unCookieTest=Test; expires=${dateEnd.toUTCString()}; Samesite=Strict; Secure`;
-            
+
             /* effacer un cookie => changer la date de péremption du cookie à une date antérieure à la date actuelle */
             let anteDate = new Date();
-            anteDate.setTime(anteDate.getTime() - ((1 * 24 * 60 * 60 * 1000) + (1000 * 60 *60)));
-            
+            anteDate.setTime(anteDate.getTime() - ((1 * 24 * 60 * 60 * 1000) + (1000 * 60 * 60)));
+
             //document.cookie = `unCookieTest=; expires=${anteDate.toUTCString()}; Samesite=Strict; Secure`;
+
+
+            /* 
+            pour faciliter la création des cookie, autant créer une fonction qui servira à trois choses 
+            - créer un cookie,
+            - modifier un cookie
+            - détruire un cookie
+            */
+
+            let cookieUser = qS('#cookieUser');
+            let btnCookie = qS('#btnCookie');
+            let btnClearEmptyCookieItem = qS('#btnClearEmptyCookieItem');
+            let btnDeleteCookie = qS('#btnDeleteCookie');
+            let dataCookie = qS('#dataCookie');
+            if (getCookie('userName')) {
+                dataCookie.innerHTML = `<b>${getCookie('userName')}</b>`;
+            }
+            btnCookie.addEventListener('click', function () {
+                if ('' !== cookieUser.value) {
+                    setCookie('userName', cookieUser.value, 1);
+                }
+                dataCookie.innerHTML = `<b>${getCookie('userName')}</b>`;
+                cookieUser.value = '';
+                //console.log(document.cookie, typeof document.cookie);
+            });
+            
+            btnDeleteCookie.addEventListener('click', function () {
+                setCookie('userName');
+                dataCookie.innerHTML = `<b>cookie "userName" supprimé</b>`;
+            });
 
         });
 
@@ -255,13 +285,8 @@
                             </button>
                         </p>
                         <p>
-                            <button id="btnClearCookieItem" class="btn btn-outline-secondary">
+                            <button id="btnDeleteCookie" class="btn btn-outline-secondary">
                                 Supprimer le cookie userName
-                            </button>
-                        </p>
-                        <p>
-                            <button id="btnClearCookie" class="btn btn-outline-secondary">
-                                Supprimer tous les cookies de la page
                             </button>
                         </p>
                         <p>
