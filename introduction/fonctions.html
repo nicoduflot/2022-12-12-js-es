@@ -24,7 +24,7 @@
         fonction "simple" (sans paramètres d'appel) 
         */
 
-        function helloWorld(){
+        function helloWorld() {
             return 'Coucou';
         }
 
@@ -41,12 +41,12 @@
          * @param {string} nom
          * @param {number} age
         */
-        function helloYou(prenom, nom, age){
+        function helloYou(prenom, nom, age) {
             return `Hello ${prenom} ${nom}, looking good for a ${age} years old`;
         }
 
         console.log(helloYou('Nicolas', 'Duflot', 42));
-        
+
         /*
         quand on utilise sur un tableau la méthode .push()
         let tab = [];
@@ -75,9 +75,9 @@
 
         */
 
-        function addition(...valeurs){
+        function addition(...valeurs) {
             let resultat = 0;
-            for(value of valeurs){
+            for (value of valeurs) {
                 /*
                 if(parseFloat(value)){
                     resultat = resultat + parseFloat(value);
@@ -85,13 +85,65 @@
                 */
                 // les etrnaire : un if en une ligne
                 // (condition du ternaire)? resultat si vrai:resultat si faux;
-                resultat += (parseFloat(value))?parseFloat(value): 0;
+                resultat += (parseFloat(value)) ? parseFloat(value) : 0;
             }
             return resultat;
         }
 
-        console.log(addition(1,2,3,4,'5',6,7,8,9, 'toto'));
+        console.log(addition(1, 2, 3, 4, '5', 6, 7, 8, 9, 'toto'));
 
+        /*
+        la structure de test try - catch permet de tester l'éxécution d'une fonction ou de code,
+        si cela fonctionne on sort du try après avoir éxécuté son code, si dans le try une erreur est relevée, 
+        elle est envoyée dans le catch, il faut donc la récupérer dans une variable qui est ensuite 
+        affichable
+        */
+
+        function testTryCatch(age) {
+            if (18 < age) {
+                let res = 'personne mineure';
+            } else {
+                let res = 'personne majeure';
+            }
+            return res;
+        }
+
+        try {
+            console.log(testTryCatch(42));
+        } catch (error) {
+            console.error(`Il y a une erreur ${error}`);
+        }
+
+        /*
+        fonction de rappel (callback function) ou fonction anomyne;
+        */
+
+        let maFonctionAnonyme = function (name = null) {
+            if (null === name) {
+                return 'Hello Kitty';
+            } else {
+                return `Hello ${name}`;
+            }
+            return false;
+        }
+
+        console.log(maFonctionAnonyme());
+        console.log(maFonctionAnonyme('Charlie'));
+
+        /* 
+        les fonction de callback anonymes peuvent être auto-éxécutée 
+        (fonctionAnonyme(paramètres))(contenu des paramètres);
+        */
+
+        (
+            (name = null) => {
+                if (null === name) {
+                    console.log('Hello Kitty');
+                } else {
+                    console.log(`Hello ${name}`);
+                }
+            }
+        )('toto');
 
     </script>
 </head>
