@@ -8,7 +8,127 @@
     <link rel="stylesheet" href="../css/bootstrap.css" />
     <script src="../js/bootstrap.bundle.js"></script>
     <script>
-        
+        let liste = [1, 2, 3, 4];
+        /*
+            assigner les valeurs dans l'ordre de déclaration dans les variables a, b, et c
+            let a = liste[0];
+            let b = liste[1];
+            let c = liste[2];
+        */
+
+        let [a, b, c] = liste;
+        console.log(`a : ${a}, b : ${b}, c : ${c}`);
+        let [d, , f, g] = liste;
+        console.log(`d : ${d}, f : ${f}, g : ${g}`);
+        let [h, i, j, k = 0, l = 12, x] = liste;
+        console.log(`h : ${h}, i : ${i}, j : ${j}, k : ${k}, l : ${l}, x : ${x}`);
+
+        /**
+         * @param {number} unTruc - valeurs autorise trois options max
+         * @param {boolean} uneOption
+         * @param {array} valeurs 
+        */
+        function truc(untruc = 12, uneOption = false, ...valeurs) {
+            let [a = 0, b = false, c = 'Compta'] = valeurs;
+            console.log(untruc, uneOption, a, b, c);
+            console.log(valeurs);
+        }
+
+        truc();
+        truc(13, true);
+        truc(14, true, 25, true, 'RH', 'toto');
+
+        /*
+        Deux variables avec des valeurs : echanger le contenu des variables
+        */
+
+        let number1 = 42;
+        let number2 = 101;
+
+        /*
+        let number3 = number1;
+        number1 = number2;
+        number2 = number3;
+        */
+        console.log(`avant échange number1 : ${number1}, number2 : ${number2}`);
+
+        [number1, number2] = [number2, number1];
+
+        console.log(`après échange number1 : ${number1}, number2 : ${number2}`);
+
+        /* la destructuration avec l'objet */
+
+        let objet = {
+            lastName: 'Sno',
+            firstName: 'Jon',
+            job: 'NightWatch',
+            knowledge: (prenom = 'you', nom = 'Moron') => {
+                return `You know not'in ${prenom} ${nom}`;
+            }
+        };
+
+        console.log(objet.lastName);
+        console.log(objet.firstName);
+        console.log(objet.knowledge(objet.firstName, objet.lastName));
+        console.log(objet.knowledge());
+
+        let { firstName, lastName, job, knowledge } = objet;
+
+        console.log(lastName);
+        console.log(firstName);
+        console.log(knowledge(firstName, lastName));
+        console.log(knowledge());
+
+        /* on peut créer des alias lors de la destructuration d'objet */
+
+        let {
+            firstName: prenom,
+            lastName: nom,
+            job: boulot,
+            knowledge: vanne
+        } = objet;
+
+        console.log(nom);
+        console.log(prenom);
+        console.log(vanne(prenom, nom));
+        console.log(vanne());
+
+        /* on peut donc faire un échange d'attribut ou de méthodes entre des objets en utilisanty la destructuration */
+
+        let personnage1 = {
+            nomHeros: 'LeCanard',
+            prenomHeros: 'Herbert',
+            coupSpecial: function () {
+                return 'Pichenette';
+            }
+        };
+
+        let personnage2 = {
+            nomHeros: 'LeDragon',
+            prenomHeros: 'Marvin',
+            coupSpecial: function () {
+                return 'TongDeum !';
+            }
+        };
+
+        console.log(`
+personnage1.nomHeros: ${personnage1.nomHeros},
+personnage1.coupSpecial: ${personnage1.coupSpecial()}
+
+personnage2.nomHeros: ${personnage2.nomHeros},
+personnage2.coupSpecial: ${personnage2.coupSpecial()}
+        `);
+
+        [personnage1.coupSpecial, personnage2.coupSpecial] = [personnage2.coupSpecial, personnage1.coupSpecial];
+
+        console.log(`
+personnage1.nomHeros: ${personnage1.nomHeros},
+personnage1.coupSpecial: ${personnage1.coupSpecial()}
+
+personnage2.nomHeros: ${personnage2.nomHeros},
+personnage2.coupSpecial: ${personnage2.coupSpecial()}
+        `);
+
     </script>
 </head>
 
@@ -75,15 +195,15 @@
                 <article>
                     <header>
                         <h2>La destructuration</h2>
-                      </header>
-                      <main>
+                    </header>
+                    <main>
                         <p>
-                          C'est un mode d'assignation de variables et d'attributs et méthode d'objet
+                            C'est un mode d'assignation de variables et d'attributs et méthode d'objet
                         </p>
                         <p>
-                          Tous est dans la console & le code
+                            Tous est dans la console & le code
                         </p>
-                      </main>
+                    </main>
                 </article>
         </section>
     </main>
