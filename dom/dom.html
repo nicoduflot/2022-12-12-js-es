@@ -169,7 +169,17 @@
                         qS('#POK-CGU').style.setProperty('display', 'block');
                     }
                 });
-            });;
+            });
+
+            let subForm = qS('button.preventDefault');
+            subForm.addEventListener('click', function(event){
+                event.preventDefault();
+                let nom = qS('input[name="nom"]');
+                let prenom = qS('input[name="prenom"]');
+                if('' !== nom.value && '' !== prenom.value){
+                    qS('#testPreventDefault').submit();
+                }
+            });
 
         });
     </script>
