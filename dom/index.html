@@ -77,6 +77,10 @@ this.nodename       : ${this.nodeName}
                 });
             });
 
+            qS('#checkP').addEventListener('click', function(event){
+                event.stopPropagation();
+            });
+
         });
     </script>
 </head>

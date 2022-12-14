@@ -17,7 +17,7 @@
             */
             var numSpan = 1;
             /* exemple de création d'un élément avec attributs et texte dans le DOM*/
-            qS('.creerDom').addEventListener('click', function(){
+            qS('.creerDom').addEventListener('click', function () {
                 /*
                 let divTest = document.createElement('div');
                 divTest.classList.add('alert', 'alert-danger');
@@ -67,7 +67,7 @@
             */
 
             let buttonAddSpan = qS('#addSpan');
-            buttonAddSpan.addEventListener('click', function(){
+            buttonAddSpan.addEventListener('click', function () {
                 let options = {
                     'data-test': `${numSpan}`,
                     'class': 'alert alert-success col-2',
@@ -82,11 +82,94 @@
                 => (donc créés avec createElement ou createTextNode)
                 */
                 testSpan.appendChild(content);
-                testSpan.addEventListener('click', function(){
+                testSpan.addEventListener('click', function () {
                     this.remove();
                 });
                 qS('#test').appendChild(testSpan);
             });
+
+            // todo list
+            /*
+            les éléments de la liste seront renseignés dans l'input, 
+                - sur la touche Entrée ou un clic sur le bouton "ajouter"
+                    - on ajoute l'élément à la liste, et on vide le champs de saisie.
+
+                - dans la liste, un clic sur un élément de cette liste le supprime
+
+                Pour les warrior·ess
+                - on vérifiera si un élément renseigné n'est déjà pas dans la liste
+                    - le cas échéant il ne sera pas ajouté en doublon
+
+            */
+
+            function addItemList(input, list) {
+                //console.log('ajout d\'élément');
+                if ('' !== input.value) {
+                    let element = input.value;
+                    input.value = '';
+                    input.focus();
+
+                    
+                    /*
+                    if (Array.from(list.children).map((value) => value.textContent.toLowerCase()).includes(element.toLowerCase())) {
+                        return;
+                    }
+                    */
+                   
+                   /*
+                   let doublon = false;
+                   let listLi = Array.from(list.children);
+                   listLi.map(function(value){
+                       //console.log(value);
+                       if(value.textContent.toLowerCase() === element.toLowerCase()){
+                           doublon = true;
+                           return;
+                        }
+                    });
+                    if(doublon){
+                        return;
+                    }
+                    */
+
+                    let doublon = Array.from(list.children).map((value) => value.textContent.toLowerCase()).includes(element.toLowerCase());
+
+                    if(doublon){
+                        return;
+                    }
+                   
+                    let li = cEO('li');
+                    let liText = document.createTextNode(element);
+                    li.appendChild(liText);
+                    li.addEventListener('click', function () {
+                        this.remove();
+                    });
+                    list.appendChild(li);
+                    return false;
+                }
+            }
+
+            let addItemBtn = qS('#addItemBtn');
+            let input = qS('#item');
+            let list = qS('#toDoList');
+
+            addItemBtn.addEventListener('click', () => addItemList(input, list) );
+            input.addEventListener('keyup', (event) => {
+                //console.log(event);
+                //console.log(event.keyCode);
+                if (13 === event.keyCode) {
+                    addItemList(input, list);
+                }
+            });
+
+            qSAll('.no-follow').forEach( link =>{
+                link.addEventListener('click', function(event){
+                    //console.log(qS('#OK-CGU').checked);
+                    if(!qS('#OK-CGU').checked){
+                        event.preventDefault();
+                        qS('#POK-CGU').style.setProperty('display', 'block');
+                    }
+                });
+            });;
 
         });
     </script>
@@ -163,13 +246,13 @@
                             </button>
                         </p>
                         <div class="row" id="test" style="min-height: 50px; margin:20px">
-    
+
                         </div>
                     </main>
                 </article>
             </div>
         </section>
-        <section>
+        <section class="row">
             <div class="col-lg-6">
                 <article>
                     <header>
@@ -200,14 +283,14 @@
                     <main>
                         <div id="list">
                             <ul id="toDoList">
-    
+
                             </ul>
                         </div>
                     </main>
                 </article>
             </div>
         </section>
-        <section>
+        <section class="row">
             <div class="col-lg-6">
                 <article>
                     <header>
@@ -217,8 +300,17 @@
                         <p>
                             Le PreventDefault permet d'arrêter le comportement
                             automatique de certaines actions, notemment les submit de formulaires,
-                            mais aussi le comprtement normal d'un lien.
+                            mais aussi le comportement normal d'un lien.
                         </p>
+                        <p class="form-check">
+                            <input type="checkbox" name="OK-CGU" id="OK-CGU"/> 
+                            <label for="OK-CGU">Valider les CGU pour aller à l'accueil</label>
+                            <a href="../index.html" class="no-follow">Accueil</a>
+                        </p>
+                        <div id="POK-CGU" class="alert alert-warning alert-dismissible fade show">
+                            Il faut valider les CGU pour accéder à l'accueil
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
                         <form id="testPreventDefault" method="get" action="">
                             <fieldset>
                                 <legend>Civilité</legend>
