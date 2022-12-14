@@ -9,8 +9,66 @@
     <script src="../js/bootstrap.bundle.js"></script>
     <script src="../js/utils.js"></script>
     <script>
+        
         loaded(function () {
-            
+
+            console.log(Math.random());
+            console.log(Math.floor(Math.random() * 3 + 1));
+
+            /*
+            Promise = créer une fonction asynchrone dont l'éxécution ne stoppe pas 
+            ou ne "fige" pas l'utilisation de la page
+
+            on appelle une fonction asynchrone
+            cette fonction va lancer une fonction qui est une promesse, 
+            cette promesse est qu'elle renvoi un résultat quoi que soit l'issue de son traitement
+            La fonction asynchrone est en attente de réponse de la promesse qui prend du temps et 
+            qui pourrai figer la page
+
+            */
+
+            let result = qS('#result');
+
+            /* créer la fonction asynchrone */
+
+            async function asyncCall() {
+                let resCall = await resolveAfterXSeconds(2);
+                return resCall;
+            }
+
+            function resolveAfterXSeconds(delay) {
+                let randError = Math.floor(Math.random() * 3 + 1);
+
+                return new Promise(function (resolve, reject) {
+                    setTimeout(function () {
+                        if (2 !== randError) {
+                            resolve('Le formateur aime les jeux de rôle');
+                        } else {
+                            reject(new Error(`L'information n'est ni importante ni disponible, code erreur ${randError}`));
+                        }
+                    }, delay * 1000);
+                });
+            }
+
+            qS('#btn').addEventListener('click', function(){
+                asyncCall()
+                .then( function(message){
+                    console.log(message);
+                    return 'youpi';
+                } )
+                .then( function(youpi){
+                    console.log(youpi);
+                })
+                .catch( function(error){
+                    console.log('async: erreur');
+                    console.error(error);
+                })
+                .finally( function(){
+                    console.log('fin de l\'appel asynchrone');
+                });
+            });
+
+
         });
     </script>
 </head>
@@ -82,9 +140,9 @@
                     <main>
                         <h3>Promesses</h3>
                         <p>
-                            Les promesse c'est une facçon de "lancer" une fonction en mode asynchrone : 
-                            son exécution se fait sans "blocage" de la page : on n'attend pas le retour de la 
-                            fonction pour continuer le script car on la déclare "en attente de réponse", et quand 
+                            Les promesse c'est une façon de "lancer" une fonction en mode asynchrone :
+                            son exécution se fait sans "blocage" de la page : on n'attend pas le retour de la
+                            fonction pour continuer le script car on la déclare "en attente de réponse", et quand
                             son traitement est fini c'est à ce moment que le retour intervient
                         </p>
                         <p>
@@ -96,7 +154,7 @@
                             </button>
                         </p>
                         <p id="result">
-                            
+
                         </p>
                     </main>
                 </article>
@@ -153,7 +211,7 @@
                             mais aussi le comportement normal d'un lien.
                         </p>
                         <p class="form-check">
-                            <input type="checkbox" name="OK-CGU" id="OK-CGU"/> 
+                            <input type="checkbox" name="OK-CGU" id="OK-CGU" />
                             <label for="OK-CGU">Valider les CGU pour aller à l'accueil</label>
                             <a href="../index.html" class="no-follow">Accueil</a>
                         </p>
