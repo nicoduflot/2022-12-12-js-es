@@ -7,9 +7,48 @@
     <title>Formation Javascript Ecmascript</title>
     <link rel="stylesheet" href="../css/bootstrap.css" />
     <script src="../js/bootstrap.bundle.js"></script>
+    <link rel="stylesheet" href="../css/style.css" />
     <script src="../js/utils.js"></script>
     <script>
         loaded(function () {
+            qS('#btn').addEventListener('click', function(){
+                let cible = qS('#cible');
+                console.log(cible.style);
+                
+                if('' !== cible.style.color){
+                    /*cible.removeAttribute('style');*/
+                    cible.style.color = null;
+                    cible.style.removeProperty('font-weight');
+                }else{
+                    cible.style.setProperty('color', '#aacc00');
+                    cible.style.fontWeight = 'bold';
+                }
+            });
+
+            let btnClasse = qS('#btnClasse');
+            let cibleClasse = qS('#cibleClasse');
+
+            btnClasse.addEventListener('click', ()=>cibleClasse.classList.toggle('paragraphe-vert'));
+            
+            /*
+            btnClasse.addEventListener('click', ()=>{
+                if(cibleClasse.classList.contains('paragraphe-vert')){
+                    cibleClasse.classList.remove('paragraphe-vert');
+                }else{
+                    cibleClasse.classList.add('paragraphe-vert');
+                }
+            });
+            */
+
+            let gauche = qS('#gauche');
+            let centre = qS('#centre');
+            let droite = qS('#droite');
+            let carre = qS('#carre');
+
+            gauche.addEventListener('click', ()=>carre.className = 'left');
+            droite.addEventListener('click', ()=>carre.className = 'right');
+            centre.addEventListener('click', ()=>carre.removeAttribute('class'));
+            
             
         });
     </script>
