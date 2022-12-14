@@ -10,8 +10,35 @@
     <script src="../js/utils.js"></script>
     <script>
         loaded(function () {
-            
-
+            let pDataModule = qSAll('p[data-module]');
+            console.log(pDataModule);
+            pDataModule.forEach(element => {
+                //console.log(element.dataset.module);
+                switch(element.dataset.module){
+                    case 'color': 
+                        let color = element.dataset.color || '#f00';
+                        element.addEventListener('mouseenter', function(){
+                            this.style.setProperty('color', color);
+                        });
+                        element.addEventListener('mouseleave', function(){
+                            this.style.removeProperty('color');
+                        });
+                    break;
+                    case 'font': 
+                    case 'magie': 
+                        let weight = element.dataset.weight || 'lighter';
+                        element.addEventListener('mouseenter', function(){
+                            this.style.setProperty('font-weight', weight);
+                        });
+                        element.addEventListener('mouseleave', function(){
+                            this.style.removeProperty('font-weight');
+                        });
+                    break;
+                    case 'after':
+                    default: 
+                        //code
+                }
+            });
         });
     </script>
 </head>
