@@ -52,7 +52,7 @@
                 */
             });
 
-            /* exercie */
+            /* exercice */
             /**
             créer une span, avec 
                 data-test = numSpan
@@ -66,6 +66,27 @@
 
             */
 
+            let buttonAddSpan = qS('#addSpan');
+            buttonAddSpan.addEventListener('click', function(){
+                let options = {
+                    'data-test': `${numSpan}`,
+                    'class': 'alert alert-success col-2',
+                    'role': 'alert'
+                };
+                let testSpan = cEO('span', options);
+                let content = document.createTextNode(`Span n° ${numSpan++}`);
+                /*
+                append permet d'ajouter aussi des chaînes de caractère dans un élément
+                button.append('text');
+                appendChild ne peut ajouter que des éléments de type node 
+                => (donc créés avec createElement ou createTextNode)
+                */
+                testSpan.appendChild(content);
+                testSpan.addEventListener('click', function(){
+                    this.remove();
+                });
+                qS('#test').appendChild(testSpan);
+            });
 
         });
     </script>
@@ -144,10 +165,6 @@
                         <div class="row" id="test" style="min-height: 50px; margin:20px">
     
                         </div>
-    
-                        <button id="btn" class="btn btn-outline-primary">
-                            Ajouter un paragraphe
-                        </button>
                     </main>
                 </article>
             </div>
