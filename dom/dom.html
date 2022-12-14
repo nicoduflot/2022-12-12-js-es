@@ -10,7 +10,63 @@
     <script src="../js/utils.js"></script>
     <script>
         loaded(function () {
+            /* 
+                pour créer un élément on utilise la méthode de document .createElement(<nom de l'élément>);
+                pour ajouter des attributs à cet éléments 
+                element.setAttribute(<attribut a ajouter>, <valeur de l'attribut>) 
+            */
+            var numSpan = 1;
+            /* exemple de création d'un élément avec attributs et texte dans le DOM*/
+            qS('.creerDom').addEventListener('click', function(){
+                /*
+                let divTest = document.createElement('div');
+                divTest.classList.add('alert', 'alert-danger');
+                divTest.setAttribute('data-message', 'coucou');
+                divTest.setAttribute('data-click', 'supp');
+                console.log(divTest);
+                console.log(divTest.dataset);
+                let contentDiv = document.createTextNode(`${numSpan}`);
+                numSpan++;
+                divTest.append(contentDiv);
+                divTest.addEventListener('click', function(){
+                    this.remove();
+                });*/
+                /*qS('.creerDom').append(divTest);*/
+                /*
+                this.parentNode.appendChild(divTest);
+                */
+
+                let options = {
+                    'class': 'alert alert-danger',
+                    'data-message': 'coucou',
+                    'data-click': 'supp',
+                    'id': `div-${numSpan}`
+                };
+
+                numSpan++;
+                let divTest = cEO('div', options);
+                console.log(divTest);
+                this.parentNode.appendChild(divTest);
+                /*
+                this.parentNode.appendChild(cEO('input', {'type':'text'}));
+                */
+            });
+
+            /* exercie */
+            /**
+            créer une span, avec 
+                data-test = numSpan
+                class = alert alert-success col-2
+                role = alert
             
+            quand on clique sur le bouton, on ajoute la span à #test
+            la span s'affiche avec numSpan supérieur au numSpan de la précédente
+
+            si on clique sur la span, elle est détruite
+
+            */
+
+
         });
     </script>
 </head>

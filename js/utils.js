@@ -39,3 +39,19 @@ function getCookie(name){
     }
     return false;
 }
+
+/* création d'éléments */
+/**
+ * element est la balise a créer
+ * options est un objet litéral: en clef l'attribut a ajouter, en valeur la valeur de l'attribut
+ * @param {string} element 
+ * @param {object} options 
+ * @returns 
+ */
+function cEO(element, options = {}){
+    let newElement = document.createElement(element);
+    for(let key in options){
+        newElement.setAttribute(key, options[key]);
+    }
+    return newElement;
+}
