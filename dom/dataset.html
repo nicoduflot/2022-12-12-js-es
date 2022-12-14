@@ -39,6 +39,59 @@
                         //code
                 }
             });
+
+            /* pointeur sur un tableau */
+            let coordonnees = qSAll('td[data-line][data-column]');
+            /*console.log(coordonnees);*/
+
+            let labelCoord = qS('span#xy');
+
+            coordonnees.forEach((element)=>{
+                element.addEventListener('mouseenter', function(){
+                    let line = element.dataset.line;
+                    element.parentNode.style.backgroundColor = 'rgba(255, 0, 0, 0.5)';
+                    let column = element.dataset.column;
+                    qSAll(`td[data-column="${column}"]`).forEach( (td)=>{
+                        td.style.backgroundColor = 'rgba(255, 0, 0, 0.5)';
+                    });
+                    labelCoord.innerHTML = `x : ${column} - y : ${line}`;
+                });
+                element.addEventListener('mouseleave', function(){
+                    let line = element.dataset.line;
+                    element.parentNode.style.removeProperty('background-color');
+                    let column = element.dataset.column;
+                    qSAll(`td[data-column="${column}"]`).forEach( (td)=>{
+                        td.style.removeProperty('background-color');
+                    });
+                    labelCoord.innerHTML = `x : &nbsp; - y : &nbsp;`;
+                });
+            });
+
+            let colorNow = 'bg-danger';
+            qSAll('#p4 th').forEach( th=>{
+                let coord = 0;
+                th.addEventListener('click', function(){
+                    coord = th.dataset.col;
+                    for(i = 6; i > 0; i--){
+                        let cell = qS(`td[data-col="${coord}"][data-row="${i}"]`);
+                        if(!cell.classList.contains('bg-danger') && !cell.classList.contains('bg-warning')){
+                            cell.classList.add(colorNow);
+                            colorNow = ('bg-danger' === colorNow)? 'bg-warning':'bg-danger';
+                            break;
+                        }
+                    }
+                });
+            } );
+
+            qS('#resetP4').addEventListener('click', function(){
+                qSAll(`td[data-col][data-row]`).forEach((td)=>{
+                    td.classList.remove('bg-danger');
+                    td.classList.remove('bg-warning');
+                });
+            });
+
+            
+
         });
     </script>
 </head>
@@ -177,14 +230,7 @@
                         <p>
                             Coordonnées : <span id="xy">x : &nbsp; - y : &nbsp;</span>
                         </p>
-    
-                        <p>
-                            <label id="labelX">X : </label><input id="xValue" type="range" min="0" max="4" step="1"
-                                value="0" /><br />
-                            <label id="labelY">y : </label><input id="yValue" type="range" min="0" max="4" step="1"
-                                value="0" />
-                        </p>
-    
+      
                         <table id="coord" class="table" style="width: 300px;">
                             <tr>
                                 <td data-column="0" data-line="0">0 - 0</td>
@@ -223,6 +269,9 @@
                             </tr>
                         </table>
                         <h3>Grille de puissance </h3>
+                        <button id="resetP4" class="btn btn-secondary">
+                            Vider la grille
+                        </button>
                         <table id="p4" class="table table-bordered">
                             <thead>
                                 <tr>
