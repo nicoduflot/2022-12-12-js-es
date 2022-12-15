@@ -40,6 +40,61 @@
                 });
             });
 
+            /* suggestion user */
+
+            let searchUser = qS('#searchUser');
+            searchUser.addEventListener('keyup', function(){
+                let searchTerm = searchUser.value;
+                if(searchTerm.length >= 3){
+                    fetch('../resource/users.json')
+                    .then( reponse => {
+                        console.log(reponse);
+                        //qS('#result tbody').innerHTML = reponse;
+                        //console.log(reponse.json());
+                        return reponse.json()
+                    })
+                    .then( data=>{
+                        console.log(data);
+                        let tabResult = jsonResultSearch(data);
+                        thead.innerHTML = tabResult[0];
+                        tbody.innerHTML = tabResult[1];
+                    })
+                    .catch( error=>{
+                        console.log(error);
+                        console.log(error.message);
+                        thead.innerHTML = '';
+                        tbody.innerHTML = `<tr><td>${error}</td></tr>`;
+                    })
+                    .finally( ()=>console.log('Fin de la requête'));
+                }else{
+                    thead.innerHTML = '';
+                    tbody.innerHTML = '';
+                }
+            });
+
+            let play = qS('#play');
+            let ff1s = qS('#ff1s');
+            let rw1s = qS('#rw1s');
+            let video = qS('video');
+
+            play.addEventListener('click', function(){
+                if(video.paused){
+                    video.play();
+                    play.innerHTML = 'Pause';
+                }else{
+                    video.pause();
+                    play.innerHTML = 'Play';
+                }
+            });
+
+            ff1s.addEventListener('click', function(){
+                video.currentTime = video.currentTime + 1;
+            });
+
+            rw1s.addEventListener('click', function(){
+                video.currentTime = video.currentTime - 1;
+            });
+
         });
     </script>
 </head>

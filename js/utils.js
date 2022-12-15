@@ -57,36 +57,55 @@ function cEO(element, options = {}){
 }
 
 function jsonResultSearch(data, searchTerm = ''){
-    let thead = '<tr>';
-    let tbody = '';
+    searchTerm = searchTerm.toLowerCase();
     let firstRound = true;
+    let thead = '<tr>';
     let tempLine = '';
     let searchOK = ('' === searchTerm)?true:false;
-
-    data.forEach(element=>{
+    let compare = '';
+    let tbody = '';
+    data.forEach(element => {
         tempLine = tempLine + '<tr>';
-        for(key in element){
-            if(firstRound){
+        for (key in element) {
+            if (firstRound) {
                 thead = thead + `<th>${key}</th>`;
             }
-            tempLine = tempLine + '<td>';
-            if('object' !== typeof element[key]){
-                tempLine = tempLine + `${element[key]}`
-            }else{
-                for(subKey in element[key]){
-                    if('object' !== typeof element[key][subKey]){
-                        tempLine = tempLine + `${element[key][subKey]}<br />`;
+            if ('object' !== typeof (element[key])) {
+                compare = element[key].toString().toLowerCase()
+                if (compare.indexOf(searchTerm) >= 0) {
+                    searchOK = true;
+                    console.log(compare, searchTerm);
+                }
+                tempLine = tempLine + `<td>`;
+                tempLine += (compare.indexOf(searchTerm) >= 0 && '' !== searchTerm)?`<mark>`: '';
+                tempLine = tempLine + `${element[key]}`;
+                tempLine += (compare.indexOf(searchTerm) >= 0 && '' !== searchTerm)?`</mark>`: '';
+                tempLine = tempLine + `</td>`;
+            } else {
+                tempLine = tempLine + `<td>`;
+                for (item in element[key]) {
+                    if ('object' !== typeof (element[key][item])) {
+                        compare = element[key][item].toString().toLowerCase()
+                        if (compare.indexOf(searchTerm) >= 0) {
+                            searchOK = true;
+                        }
+                       
+                        tempLine = tempLine + `<b>${item} : </b> <i>`;
+                        tempLine += (compare.indexOf(searchTerm) >= 0 && '' !== searchTerm)?`<mark>`: '';
+                        tempLine = tempLine + `${element[key][item]}`;
+                        tempLine += (compare.indexOf(searchTerm) >= 0 && '' !== searchTerm)?`</mark>`: '';
+                        tempLine = tempLine +`</i><br />`;
                     }
                 }
+                tempLine = tempLine + '</td>';
             }
-            tempLine = tempLine + '</td>';
         }
         tempLine = tempLine + '</tr>';
-
-        firstRound = false;
-        if(searchOK){
+        if (searchOK) {
             tbody = tbody + tempLine;
         }
+        firstRound = false;
+        searchOK = false;
         searchOK = ('' === searchTerm)?true:false;
         tempLine = '';
     });
