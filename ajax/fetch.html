@@ -45,6 +45,8 @@
             let searchUser = qS('#searchUser');
             searchUser.addEventListener('keyup', function(){
                 let searchTerm = searchUser.value;
+                thead.innerHTML = '';
+                tbody.innerHTML = '';
                 if(searchTerm.length >= 3){
                     fetch('../resource/users.json')
                     .then( reponse => {
@@ -55,7 +57,7 @@
                     })
                     .then( data=>{
                         console.log(data);
-                        let tabResult = jsonResultSearch(data);
+                        let tabResult = jsonResultSearch(data, searchTerm);
                         thead.innerHTML = tabResult[0];
                         tbody.innerHTML = tabResult[1];
                     })

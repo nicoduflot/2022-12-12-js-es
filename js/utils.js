@@ -56,12 +56,12 @@ function cEO(element, options = {}){
     return newElement;
 }
 
-function jsonResultSearch(data, searchTerm = ''){
-    searchTerm = searchTerm.toLowerCase();
+function jsonResultSearch(data, search = '') {
+    search = search.toLowerCase();
     let firstRound = true;
     let thead = '<tr>';
     let tempLine = '';
-    let searchOK = ('' === searchTerm)?true:false;
+    let searchOK = ('' === search)?true:false;
     let compare = '';
     let tbody = '';
     data.forEach(element => {
@@ -72,28 +72,27 @@ function jsonResultSearch(data, searchTerm = ''){
             }
             if ('object' !== typeof (element[key])) {
                 compare = element[key].toString().toLowerCase()
-                if (compare.indexOf(searchTerm) >= 0) {
+                if (compare.indexOf(search) >= 0) {
                     searchOK = true;
-                    console.log(compare, searchTerm);
                 }
                 tempLine = tempLine + `<td>`;
-                tempLine += (compare.indexOf(searchTerm) >= 0 && '' !== searchTerm)?`<mark>`: '';
+                tempLine += (compare.indexOf(search) >= 0 && '' !== search)?`<mark>`: '';
                 tempLine = tempLine + `${element[key]}`;
-                tempLine += (compare.indexOf(searchTerm) >= 0 && '' !== searchTerm)?`</mark>`: '';
+                tempLine += (compare.indexOf(search) >= 0 && '' !== search)?`</mark>`: '';
                 tempLine = tempLine + `</td>`;
             } else {
                 tempLine = tempLine + `<td>`;
                 for (item in element[key]) {
                     if ('object' !== typeof (element[key][item])) {
                         compare = element[key][item].toString().toLowerCase()
-                        if (compare.indexOf(searchTerm) >= 0) {
+                        if (compare.indexOf(search) >= 0) {
                             searchOK = true;
                         }
                        
                         tempLine = tempLine + `<b>${item} : </b> <i>`;
-                        tempLine += (compare.indexOf(searchTerm) >= 0 && '' !== searchTerm)?`<mark>`: '';
+                        tempLine += (compare.indexOf(search) >= 0 && '' !== search)?`<mark>`: '';
                         tempLine = tempLine + `${element[key][item]}`;
-                        tempLine += (compare.indexOf(searchTerm) >= 0 && '' !== searchTerm)?`</mark>`: '';
+                        tempLine += (compare.indexOf(search) >= 0 && '' !== search)?`</mark>`: '';
                         tempLine = tempLine +`</i><br />`;
                     }
                 }
@@ -106,10 +105,9 @@ function jsonResultSearch(data, searchTerm = ''){
         }
         firstRound = false;
         searchOK = false;
-        searchOK = ('' === searchTerm)?true:false;
+        searchOK = ('' === search)?true:false;
         tempLine = '';
     });
-
 
     thead = thead + '</tr>';
     return [thead, tbody];
