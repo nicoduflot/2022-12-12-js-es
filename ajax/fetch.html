@@ -9,9 +9,37 @@
     <script src="../js/bootstrap.bundle.js"></script>
     <script src="../js/utils.js"></script>
     <script>
-        
+
         loaded(function () {
-            
+            let fetchButtons = qSAll('button.read');
+            let thead = qS('#result thead');
+            let tbody = qS('#result tbody');
+
+            fetchButtons.forEach(btn => {
+                btn.addEventListener('click', function () {
+                    fetch(this.dataset.url)
+                    .then( reponse => {
+                        console.log(reponse);
+                        //qS('#result tbody').innerHTML = reponse;
+                        //console.log(reponse.json());
+                        return reponse.json()
+                    })
+                    .then( data=>{
+                        console.log(data);
+                        let tabResult = jsonResultSearch(data);
+                        thead.innerHTML = tabResult[0];
+                        tbody.innerHTML = tabResult[1];
+                    })
+                    .catch( error=>{
+                        console.log(error);
+                        console.log(error.message);
+                        thead.innerHTML = '';
+                        tbody.innerHTML = `<tr><td>${error}</td></tr>`;
+                    })
+                    .finally( ()=>console.log('Fin de la requête'));
+                });
+            });
+
         });
     </script>
 </head>
@@ -100,19 +128,20 @@
                         </p>
                     </main>
                 </article>
-                <div class="col-lg-4">
-                    <article>
-                        <header>
-                            <h2>Suggestion utilisateurs</h2>
-                        </header>
-                        <main>
-                            <h3>Utilisateur dans users</h3>
-                            <p>
-                                <input type="text" id="searchUser" value="" class="form-control" />
-                            </p>
-                        </main>
-                    </article>
-                </div>
+            </div>
+            <div class="col-lg-4">
+                <article>
+                    <header>
+                        <h2>Suggestion utilisateurs</h2>
+                    </header>
+                    <main>
+                        <h3>Utilisateur dans users</h3>
+                        <p>
+                            <input type="text" id="searchUser" value="" class="form-control" />
+                        </p>
+                    </main>
+                </article>
+            </div>
             </div>
         </section>
         <section class="row">
@@ -120,10 +149,10 @@
                 <article>
                     <table id="result" class="table table-striped">
                         <thead class="table-dark">
-    
+
                         </thead>
                         <tbody>
-    
+
                         </tbody>
                     </table>
                 </article>
@@ -143,8 +172,7 @@
                             => 1s
                         </button>
                         <button id="rw1s" class="btn btn-outline-primary pause">
-                            <= 1s
-                        </button>
+                            <= 1s </button>
                     </div>
                 </article>
             </div>

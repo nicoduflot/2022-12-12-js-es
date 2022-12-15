@@ -55,3 +55,43 @@ function cEO(element, options = {}){
     }
     return newElement;
 }
+
+function jsonResultSearch(data, searchTerm = ''){
+    let thead = '<tr>';
+    let tbody = '';
+    let firstRound = true;
+    let tempLine = '';
+    let searchOK = ('' === searchTerm)?true:false;
+
+    data.forEach(element=>{
+        tempLine = tempLine + '<tr>';
+        for(key in element){
+            if(firstRound){
+                thead = thead + `<th>${key}</th>`;
+            }
+            tempLine = tempLine + '<td>';
+            if('object' !== typeof element[key]){
+                tempLine = tempLine + `${element[key]}`
+            }else{
+                for(subKey in element[key]){
+                    if('object' !== typeof element[key][subKey]){
+                        tempLine = tempLine + `${element[key][subKey]}<br />`;
+                    }
+                }
+            }
+            tempLine = tempLine + '</td>';
+        }
+        tempLine = tempLine + '</tr>';
+
+        firstRound = false;
+        if(searchOK){
+            tbody = tbody + tempLine;
+        }
+        searchOK = ('' === searchTerm)?true:false;
+        tempLine = '';
+    });
+
+
+    thead = thead + '</tr>';
+    return [thead, tbody];
+}
